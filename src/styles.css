@@ -1872,3 +1872,475 @@ button:focus:not(:focus-visible) {
     scroll-behavior: auto !important;
   }
 }
+
+
+/* =========================================================
+   MINEGUARD AI — FIXED MISSION HUD
+   Purpose:
+   - Header remains permanently fixed while page content scrolls.
+   - Mission controls remain permanently fixed at the bottom.
+   - Sidebar remains fixed.
+   - Existing dashboard/card designs are preserved.
+   - Adds a dedicated command-deck / industrial HUD treatment.
+   ========================================================= */
+
+/* --- Fixed header geometry --------------------------------- */
+:root {
+  --mc-sidebar-width: 236px;
+  --mc-sidebar-collapsed-width: 72px;
+  --mc-header-height: 76px;
+  --mc-command-height: 78px;
+}
+
+/*
+   The page itself remains the scrolling surface.
+   The header is removed from normal document flow and pinned
+   to the viewport, so it cannot scroll away with dashboard cards.
+*/
+.mc-header {
+  position: fixed !important;
+  top: 0 !important;
+  left: var(--mc-sidebar-width) !important;
+  right: 0 !important;
+  width: auto !important;
+  height: var(--mc-header-height) !important;
+  min-height: var(--mc-header-height) !important;
+  z-index: 900 !important;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(7, 13, 18, .97),
+      rgba(7, 11, 16, .92)
+    ) !important;
+  border-bottom: 1px solid rgba(56, 217, 255, .14) !important;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, .32),
+    inset 0 -1px 0 rgba(255, 181, 46, .035);
+
+  isolation: isolate;
+}
+
+/* Thin cyan mission-line under the fixed header */
+.mc-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(56, 217, 255, .12) 12%,
+    rgba(56, 217, 255, .5) 50%,
+    rgba(255, 181, 46, .18) 82%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+/*
+   Because the header is fixed, content must reserve its vertical
+   space. This prevents the first dashboard row from hiding beneath it.
+*/
+.mc-main {
+  margin-left: var(--mc-sidebar-width);
+}
+
+.mc-content {
+  padding-top: calc(20px + var(--mc-header-height)) !important;
+  padding-bottom: calc(30px + var(--mc-command-height) + 24px) !important;
+}
+
+/* Collapsed sidebar state */
+.mc-main-collapsed {
+  margin-left: var(--mc-sidebar-collapsed-width);
+}
+
+.mc-sidebar.collapsed ~ .mc-main .mc-header {
+  left: var(--mc-sidebar-collapsed-width) !important;
+}
+
+/* --- Mission header details -------------------------------- */
+.mc-header-right {
+  position: relative;
+  z-index: 2;
+}
+
+.mc-header-stat,
+.mc-connection {
+  min-height: 40px;
+}
+
+.mc-header-stat strong,
+.mc-clock {
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Fixed command deck ------------------------------------ */
+.mc-control-bar {
+  /*
+     Fixed to the viewport instead of sticky.
+     This guarantees the buttons never disappear while scrolling.
+  */
+  position: fixed !important;
+  left: calc(var(--mc-sidebar-width) + 18px) !important;
+  right: 18px !important;
+  bottom: 16px !important;
+
+  width: auto !important;
+  margin: 0 !important;
+
+  min-height: 68px;
+  padding: 9px !important;
+
+  z-index: 850 !important;
+
+  display: grid;
+  grid-template-columns: minmax(150px, .9fr) minmax(150px, .9fr) minmax(260px, 2fr);
+  gap: 9px;
+
+  border: 1px solid rgba(98, 181, 255, .20) !important;
+  border-radius: 14px !important;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(15, 23, 30, .96),
+      rgba(7, 12, 17, .97)
+    ) !important;
+
+  box-shadow:
+    0 20px 55px rgba(0, 0, 0, .48),
+    0 0 0 1px rgba(255, 255, 255, .018) inset,
+    0 -4px 22px rgba(56, 217, 255, .025) inset;
+
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
+}
+
+/* Decorative command-deck label */
+.mc-control-bar::before {
+  content: "MISSION COMMAND  //  REMOTE CONTROL";
+  position: absolute;
+  left: 16px;
+  top: -9px;
+
+  padding: 0 7px;
+
+  color: #647987;
+  background: #080d12;
+  font: 700 7px/1 Consolas, monospace;
+  letter-spacing: .14em;
+  white-space: nowrap;
+}
+
+/* Small status light on the command deck */
+.mc-control-bar::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 9px rgba(49, 230, 161, .55);
+  animation: mc-live 1.8s ease-in-out infinite;
+}
+
+/* Controls become larger, more like hardware command switches */
+.mc-control {
+  position: relative;
+  min-height: 50px !important;
+  border-radius: 9px !important;
+  overflow: hidden;
+
+  letter-spacing: .09em;
+  font-size: 10px !important;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(24, 35, 44, .95),
+      rgba(14, 21, 27, .95)
+    ) !important;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.025),
+    inset 0 -1px 0 rgba(0,0,0,.35);
+}
+
+.mc-control::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  opacity: .8;
+  background: currentColor;
+}
+
+.mc-start {
+  color: var(--green) !important;
+  border-color: rgba(49, 230, 161, .28) !important;
+}
+
+.mc-start:hover:not(:disabled) {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(21, 58, 48, .96),
+      rgba(13, 32, 28, .96)
+    ) !important;
+  border-color: rgba(49, 230, 161, .55) !important;
+  box-shadow:
+    0 0 22px rgba(49, 230, 161, .08),
+    inset 0 0 18px rgba(49, 230, 161, .035);
+}
+
+.mc-resume {
+  color: var(--blue) !important;
+  border-color: rgba(98, 181, 255, .28) !important;
+}
+
+.mc-resume:hover:not(:disabled) {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(22, 45, 63, .96),
+      rgba(13, 27, 38, .96)
+    ) !important;
+  border-color: rgba(98, 181, 255, .55) !important;
+  box-shadow:
+    0 0 22px rgba(98, 181, 255, .08),
+    inset 0 0 18px rgba(98, 181, 255, .035);
+}
+
+/* E-STOP is intentionally visually dominant */
+.mc-estop {
+  color: #ffd5d9 !important;
+  border-color: rgba(255, 83, 100, .52) !important;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(91, 20, 29, .98),
+      rgba(50, 12, 18, .98)
+    ) !important;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .035),
+    inset 0 -1px 0 rgba(0,0,0,.3),
+    0 0 0 1px rgba(255, 83, 100, .035);
+}
+
+.mc-estop::before {
+  background: #ff5364;
+  box-shadow: 0 0 12px rgba(255, 83, 100, .45);
+}
+
+.mc-estop:hover:not(:disabled) {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(125, 25, 37, .98),
+      rgba(67, 13, 21, .98)
+    ) !important;
+  border-color: rgba(255, 83, 100, .8) !important;
+  box-shadow:
+    0 0 28px rgba(255, 83, 100, .14),
+    inset 0 0 20px rgba(255, 83, 100, .045);
+}
+
+/* Prevent content from visually colliding with the fixed deck */
+.mc-footer-actions {
+  padding-bottom: 2px;
+}
+
+/* --- Desktop-wide layout ----------------------------------- */
+@media (min-width: 1251px) {
+  .mc-control-bar {
+    max-width: none;
+  }
+}
+
+/* --- Existing large-tablet breakpoint ---------------------- */
+@media (max-width: 1250px) {
+  :root {
+    --mc-sidebar-width: 236px;
+    --mc-header-height: 76px;
+    --mc-command-height: 82px;
+  }
+
+  .mc-content {
+    padding-top: calc(18px + var(--mc-header-height)) !important;
+  }
+
+  .mc-control-bar {
+    left: calc(var(--mc-sidebar-width) + 14px) !important;
+    right: 14px !important;
+    bottom: 12px !important;
+    grid-template-columns: minmax(130px, 1fr) minmax(130px, 1fr) minmax(190px, 1.6fr);
+  }
+}
+
+/* --- Tablet ----------------------------------------------- */
+@media (max-width: 900px) {
+  :root {
+    --mc-sidebar-width: 76px;
+    --mc-sidebar-collapsed-width: 76px;
+    --mc-header-height: 68px;
+    --mc-command-height: 92px;
+  }
+
+  .mc-main,
+  .mc-main-collapsed {
+    margin-left: 76px !important;
+  }
+
+  .mc-header,
+  .mc-sidebar.collapsed ~ .mc-main .mc-header {
+    left: 76px !important;
+  }
+
+  .mc-header {
+    height: var(--mc-header-height) !important;
+    min-height: var(--mc-header-height) !important;
+  }
+
+  .mc-content {
+    padding-top: calc(18px + var(--mc-header-height)) !important;
+    padding-bottom: calc(28px + var(--mc-command-height) + 20px) !important;
+  }
+
+  .mc-control-bar {
+    left: 90px !important;
+    right: 14px !important;
+    bottom: 12px !important;
+
+    grid-template-columns: 1fr 1fr;
+    min-height: 0;
+  }
+
+  .mc-estop {
+    grid-column: 1 / -1;
+  }
+}
+
+/* --- Phone: fixed top header + fixed command deck ------------ */
+@media (max-width: 600px) {
+  :root {
+    --mc-sidebar-width: 0px;
+    --mc-header-height: 62px;
+    --mc-command-height: 148px;
+  }
+
+  body {
+    padding-bottom: 0 !important;
+  }
+
+  .mc-main,
+  .mc-main-collapsed {
+    margin-left: 0 !important;
+  }
+
+  .mc-header,
+  .mc-sidebar.collapsed ~ .mc-main .mc-header {
+    left: 0 !important;
+    right: 0 !important;
+    height: var(--mc-header-height) !important;
+    min-height: var(--mc-header-height) !important;
+    padding: 9px 14px !important;
+  }
+
+  .mc-content {
+    padding-top: calc(14px + var(--mc-header-height)) !important;
+    padding-bottom: calc(22px + var(--mc-command-height) + 74px) !important;
+  }
+
+  /*
+     On phones the command deck remains fixed above the bottom
+     navigation, so both systems stay accessible.
+  */
+  .mc-control-bar {
+    left: 9px !important;
+    right: 9px !important;
+    bottom: 72px !important;
+
+    padding: 8px !important;
+    gap: 7px !important;
+
+    grid-template-columns: 1fr 1fr;
+    border-radius: 12px !important;
+  }
+
+  .mc-control-bar::before {
+    font-size: 6px;
+    left: 12px;
+  }
+
+  .mc-control {
+    min-height: 44px !important;
+    font-size: 8px !important;
+  }
+
+  .mc-estop {
+    grid-column: 1 / -1;
+  }
+
+  /* The mobile nav is still the lowest fixed navigation layer. */
+  .mc-sidebar,
+  .mc-sidebar.collapsed {
+    z-index: 1000 !important;
+  }
+
+  .mc-control-bar {
+    z-index: 950 !important;
+  }
+
+  .mc-header {
+    z-index: 1100 !important;
+  }
+}
+
+/* --- Very small phones ------------------------------------- */
+@media (max-width: 390px) {
+  :root {
+    --mc-header-height: 60px;
+    --mc-command-height: 158px;
+  }
+
+  .mc-header {
+    padding-left: 11px !important;
+    padding-right: 11px !important;
+  }
+
+  .mc-control-bar {
+    left: 7px !important;
+    right: 7px !important;
+    bottom: 70px !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  .mc-estop {
+    grid-column: auto;
+  }
+
+  .mc-control {
+    min-height: 42px !important;
+  }
+
+  .mc-content {
+    padding-bottom: calc(22px + var(--mc-command-height) + 70px) !important;
+  }
+}
+
+/* --- Accessibility ----------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .mc-control-bar::after {
+    animation: none;
+  }
+}
