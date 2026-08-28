@@ -5,3 +5,5 @@ export default defineConfig({
   plugins: [react()],
   base: '/Mine-Safety-Rover/',
 })
+
+

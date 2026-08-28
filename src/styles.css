@@ -967,3 +967,908 @@ button {
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+
+/* =========================================================
+   MINEGUARD UI POLISH + RESPONSIVE SYSTEM
+   Keeps the existing class names/markup intact.
+   ========================================================= */
+
+/* --- Refined visual tokens -------------------------------- */
+:root {
+  --bg: #070b10;
+  --panel: #0d141b;
+  --panel-2: #111a22;
+  --panel-3: #16212a;
+  --border: #24333e;
+  --border-soft: rgba(111, 143, 161, .18);
+  --muted: #8293a1;
+  --text: #e8f0f4;
+  --green: #31e6a1;
+  --amber: #ffb52e;
+  --red: #ff5364;
+  --blue: #62b5ff;
+  --cyan: #38d9ff;
+  --shadow: 0 14px 40px rgba(0, 0, 0, .28);
+  --radius: 12px;
+  --ease: cubic-bezier(.22, 1, .36, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html, body {
+  overflow-x: hidden;
+}
+
+body {
+  min-width: 0;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 85% -10%, rgba(56, 217, 255, .08), transparent 30%),
+    radial-gradient(circle at 10% 100%, rgba(49, 230, 161, .045), transparent 25%),
+    var(--bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body::-webkit-scrollbar {
+  width: 9px;
+}
+
+body::-webkit-scrollbar-track {
+  background: #080d12;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #2b3d49;
+  border: 2px solid #080d12;
+  border-radius: 999px;
+}
+
+button,
+.mc-nav-item,
+.mc-control,
+.mc-export,
+.mc-collapse,
+.mc-modal-close {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* --- Subtle motion ---------------------------------------- */
+@keyframes mc-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes mc-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(49, 230, 161, .16);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(49, 230, 161, 0);
+  }
+}
+
+@keyframes mc-live {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: .38;
+  }
+}
+
+@keyframes mc-scan {
+  from {
+    transform: translateY(-110%);
+  }
+  to {
+    transform: translateY(110%);
+  }
+}
+
+.mc-card {
+  border-radius: var(--radius);
+  border-color: var(--border-soft);
+  box-shadow: 0 1px 0 rgba(255,255,255,.02) inset;
+  transition:
+    transform .28s var(--ease),
+    border-color .28s ease,
+    box-shadow .28s ease,
+    background .28s ease;
+  animation: mc-fade-up .5s var(--ease) both;
+}
+
+.mc-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(98, 181, 255, .24);
+  box-shadow: var(--shadow);
+}
+
+.mc-card:nth-child(2) { animation-delay: .04s; }
+.mc-card:nth-child(3) { animation-delay: .08s; }
+.mc-card:nth-child(4) { animation-delay: .12s; }
+.mc-card:nth-child(5) { animation-delay: .16s; }
+
+/* --- Sidebar / navigation -------------------------------- */
+.mc-sidebar {
+  background:
+    linear-gradient(180deg, rgba(16, 25, 33, .98), rgba(8, 13, 18, .98));
+  border-right-color: rgba(111, 143, 161, .16);
+  transition:
+    width .32s var(--ease),
+    transform .32s var(--ease);
+}
+
+.mc-brand-mark {
+  background: linear-gradient(145deg, #16232d, #0d151c);
+  border-color: rgba(255, 181, 46, .24);
+  box-shadow: 0 8px 22px rgba(0,0,0,.22);
+}
+
+.mc-nav-item {
+  transition:
+    background .22s ease,
+    color .22s ease,
+    transform .22s var(--ease);
+}
+
+.mc-nav-item:hover {
+  transform: translateX(2px);
+  background: rgba(98, 181, 255, .055);
+}
+
+.mc-nav-item.active {
+  background:
+    linear-gradient(90deg, rgba(255, 181, 46, .10), rgba(255, 181, 46, .025));
+  box-shadow: inset 2px 0 0 var(--amber);
+}
+
+.mc-collapse {
+  transition:
+    transform .25s var(--ease),
+    background .2s ease,
+    border-color .2s ease;
+}
+
+.mc-collapse:hover {
+  transform: scale(1.08);
+  background: #17232c;
+  border-color: rgba(98, 181, 255, .35);
+}
+
+/* --- Header ----------------------------------------------- */
+.mc-header {
+  background: rgba(7, 11, 16, .82);
+  border-bottom-color: rgba(111, 143, 161, .16);
+}
+
+.mc-header h1 {
+  color: #f2f7fa;
+}
+
+.mc-clock {
+  color: var(--cyan);
+  text-shadow: 0 0 18px rgba(56, 217, 255, .12);
+}
+
+/* --- Cards / controls ------------------------------------- */
+.mc-card-head {
+  border-bottom-color: rgba(111, 143, 161, .13);
+  background: linear-gradient(180deg, rgba(255,255,255,.018), transparent);
+}
+
+.mc-card-title {
+  color: #b8c5ce;
+}
+
+.mc-badge {
+  transition:
+    transform .2s ease,
+    border-color .2s ease,
+    background .2s ease;
+}
+
+.mc-badge:hover {
+  transform: translateY(-1px);
+}
+
+.mc-progress {
+  background: #1a252e;
+}
+
+.mc-progress > div {
+  box-shadow: 0 0 12px rgba(49, 230, 161, .16);
+  transition: width .55s var(--ease);
+}
+
+.mc-control,
+.mc-export {
+  transition:
+    transform .2s var(--ease),
+    background .2s ease,
+    border-color .2s ease,
+    box-shadow .2s ease;
+}
+
+.mc-control:hover:not(:disabled),
+.mc-export:hover {
+  transform: translateY(-1px);
+  border-color: rgba(98, 181, 255, .32);
+  background: #18232c;
+  box-shadow: 0 7px 20px rgba(0,0,0,.18);
+}
+
+.mc-control:active:not(:disabled),
+.mc-export:active {
+  transform: translateY(0) scale(.985);
+}
+
+.mc-estop {
+  background: linear-gradient(145deg, #52151b, #351014);
+}
+
+.mc-estop:hover:not(:disabled) {
+  background: linear-gradient(145deg, #711b24, #481218);
+  border-color: rgba(255, 83, 100, .55);
+  box-shadow: 0 8px 24px rgba(255, 83, 100, .12);
+}
+
+/* --- Video panel ------------------------------------------ */
+.mc-video-frame {
+  border-color: rgba(111, 143, 161, .18);
+  box-shadow: inset 0 0 35px rgba(0,0,0,.2);
+}
+
+.mc-video-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 46%,
+    rgba(56, 217, 255, .035) 50%,
+    transparent 54%,
+    transparent 100%
+  );
+  opacity: .7;
+}
+
+.mc-live-pill {
+  box-shadow: 0 6px 18px rgba(0,0,0,.28);
+}
+
+.mc-live-pill i,
+.mc-dot {
+  animation: mc-live 1.7s ease-in-out infinite;
+}
+
+/* --- Sensor / alert states -------------------------------- */
+.gas-card,
+.mc-alert-item,
+.mc-survivor-alert,
+.mc-resilience {
+  transition:
+    border-color .25s ease,
+    background .25s ease,
+    transform .25s var(--ease);
+}
+
+.gas-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(98, 181, 255, .25);
+}
+
+.gas-card.warning:hover {
+  border-color: rgba(255, 181, 46, .48);
+}
+
+.gas-card.danger:hover {
+  border-color: rgba(255, 83, 100, .55);
+}
+
+.mc-alert-item:hover {
+  background: rgba(255,255,255,.018);
+}
+
+.mc-survivor-alert {
+  box-shadow: inset 0 0 24px rgba(255, 181, 46, .025);
+}
+
+/* --- Maps / thermal visualization ------------------------ */
+.tunnel-svg,
+.thermal-grid {
+  box-shadow: inset 0 0 24px rgba(0,0,0,.22);
+}
+
+.rover-marker {
+  filter: drop-shadow(0 0 5px rgba(98, 181, 255, .65));
+}
+
+.hazard-marker {
+  filter: drop-shadow(0 0 5px rgba(255, 83, 100, .35));
+}
+
+.survivor-marker {
+  filter: drop-shadow(0 0 5px rgba(255, 181, 46, .45));
+}
+
+/* --- Timeline --------------------------------------------- */
+.mc-timeline-item {
+  transition: background .22s ease;
+}
+
+.mc-timeline-item:hover {
+  background: rgba(255,255,255,.012);
+}
+
+.mc-timeline-dot {
+  box-shadow: 0 0 0 3px rgba(98, 181, 255, .05);
+}
+
+/* --- Sticky control bar ----------------------------------- */
+.mc-control-bar {
+  box-shadow: 0 16px 42px rgba(0,0,0,.34);
+}
+
+/* =========================================================
+   RESPONSIVE BREAKPOINTS
+   ========================================================= */
+
+/* Large tablets / small laptops */
+@media (max-width: 1250px) {
+  body {
+    min-width: 0;
+  }
+
+  .mc-content {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .mc-dashboard-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+  }
+
+  .rover-status-card {
+    grid-column: 1;
+  }
+
+  .live-video-card {
+    grid-column: 2;
+  }
+
+  .alert-panel {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+
+  .gas-cards-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .thermal-map-card,
+  .communication-status {
+    grid-column: 2;
+  }
+
+  .tunnel-map-card,
+  .sensor-charts-card {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Tablets */
+@media (max-width: 900px) {
+  .mc-sidebar {
+    width: 76px;
+    padding: 14px 8px;
+  }
+
+  .mc-sidebar .mc-brand {
+    justify-content: center;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .mc-brand strong,
+  .mc-brand span {
+    display: none;
+  }
+
+  .mc-brand-mark {
+    width: 38px;
+    height: 38px;
+  }
+
+  .mc-nav-item {
+    justify-content: center;
+    padding: 12px 8px;
+  }
+
+  .mc-nav-item span {
+    display: none;
+  }
+
+  .mc-sidebar-bottom {
+    display: none;
+  }
+
+  .mc-main,
+  .mc-main-collapsed {
+    margin-left: 76px;
+  }
+
+  .mc-header {
+    padding: 13px 20px;
+  }
+
+  .mc-header-right {
+    gap: 12px;
+  }
+
+  .mc-header-stat {
+    display: none;
+  }
+
+  .mc-content {
+    padding: 18px;
+  }
+
+  .mc-dashboard-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .rover-status-card,
+  .live-video-card,
+  .alert-panel,
+  .tunnel-map-card,
+  .thermal-map-card,
+  .sensor-charts-card,
+  .communication-status,
+  .mission-timeline {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+
+  .gas-cards-grid {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .mc-video-frame {
+    height: min(48vw, 340px);
+  }
+
+  .mc-timeline {
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 18px;
+  }
+
+  .mc-control-bar {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .mc-estop {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Phones */
+@media (max-width: 600px) {
+  html {
+    scroll-padding-top: 64px;
+  }
+
+  body {
+    padding-bottom: 76px;
+  }
+
+  .mc-layout {
+    min-height: 100dvh;
+  }
+
+  /* Turn the desktop sidebar into a compact bottom navigation. */
+  .mc-sidebar,
+  .mc-sidebar.collapsed {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: auto;
+    bottom: 0;
+    width: 100%;
+    min-height: 64px;
+    height: 64px;
+    padding: 6px 8px;
+    z-index: 50;
+    border-right: 0;
+    border-top: 1px solid rgba(111, 143, 161, .18);
+    background: rgba(8, 13, 18, .94);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    backdrop-filter: blur(18px) saturate(140%);
+    box-shadow: 0 -12px 32px rgba(0,0,0,.28);
+  }
+
+  .mc-brand,
+  .mc-collapse,
+  .mc-sidebar-bottom {
+    display: none;
+  }
+
+  .mc-nav {
+    height: 100%;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-around;
+    gap: 3px;
+  }
+
+  .mc-nav-item {
+    min-width: 0;
+    min-height: 52px;
+    flex: 1 1 0;
+    justify-content: center;
+    flex-direction: column;
+    gap: 4px;
+    padding: 6px 3px;
+    border-radius: 9px;
+    text-align: center;
+  }
+
+  .mc-nav-item span {
+    display: block;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 8px;
+    line-height: 1;
+  }
+
+  .mc-nav-item:hover {
+    transform: none;
+  }
+
+  .mc-nav-item.active {
+    box-shadow: inset 0 -2px 0 var(--amber);
+  }
+
+  .mc-main,
+  .mc-main-collapsed {
+    margin-left: 0;
+  }
+
+  .mc-header {
+    min-height: 64px;
+    padding: 10px 14px;
+    gap: 10px;
+  }
+
+  .mc-eyebrow {
+    font-size: 7px;
+  }
+
+  .mc-header h1 {
+    font-size: 15px;
+    letter-spacing: .05em;
+    white-space: nowrap;
+  }
+
+  .mc-header-right {
+    margin-left: auto;
+    gap: 8px;
+  }
+
+  .mc-connection {
+    display: none;
+  }
+
+  .mc-clock {
+    font-size: 10px;
+  }
+
+  .mc-content {
+    width: 100%;
+    padding: 14px 12px 22px;
+  }
+
+  .mc-page-head {
+    margin-bottom: 12px;
+  }
+
+  .mc-page-head h2 {
+    font-size: 16px;
+  }
+
+  .mc-dashboard-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .mc-card,
+  .rover-status-card,
+  .live-video-card,
+  .alert-panel,
+  .gas-cards-grid,
+  .tunnel-map-card,
+  .thermal-map-card,
+  .sensor-charts-card,
+  .communication-status,
+  .mission-timeline {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+
+  .mc-card:hover,
+  .gas-card:hover {
+    transform: none;
+  }
+
+  .mc-card-head {
+    height: 42px;
+    padding: 0 12px;
+  }
+
+  .mc-card-body {
+    padding: 12px;
+  }
+
+  .mc-card-title {
+    font-size: 9px;
+  }
+
+  /* Gas sensors become a horizontally scrollable rail. */
+  .gas-cards-grid {
+    display: flex;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    -ms-overflow-style: none;
+    gap: 9px;
+    padding: 1px 1px 5px;
+  }
+
+  .gas-cards-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .gas-card {
+    flex: 0 0 min(78vw, 270px);
+    scroll-snap-align: start;
+  }
+
+  .mc-sensor-value {
+    font-size: 22px;
+  }
+
+  .mc-metrics-grid {
+    gap: 8px;
+  }
+
+  .mc-metric strong {
+    font-size: 15px;
+  }
+
+  .mc-video-frame {
+    height: min(58vw, 290px);
+    min-height: 205px;
+  }
+
+  .mc-alert-item {
+    grid-template-columns: 18px minmax(0, 1fr) auto;
+    gap: 7px;
+    padding: 12px 0;
+  }
+
+  .mc-alert-item strong {
+    font-size: 10px;
+  }
+
+  .mc-alert-item span {
+    font-size: 9px;
+  }
+
+  .mc-alert-item time {
+    font-size: 8px;
+  }
+
+  .tunnel-svg {
+    height: min(58vw, 245px);
+  }
+
+  .thermal-grid {
+    height: min(58vw, 245px);
+  }
+
+  .map-legend {
+    flex-wrap: wrap;
+    gap: 8px 13px;
+  }
+
+  .mc-chart {
+    height: 215px;
+  }
+
+  .mc-timeline {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .mc-timeline-item {
+    min-height: 62px;
+    padding: 13px 8px 10px 22px;
+    border-top: 0;
+    border-left: 1px solid #26313b;
+  }
+
+  .mc-timeline-dot {
+    top: 14px;
+    left: -5px;
+  }
+
+  .mc-footer-actions {
+    justify-content: stretch;
+  }
+
+  .mc-export {
+    width: 100%;
+    justify-content: center;
+    min-height: 42px;
+  }
+
+  .mc-control-bar {
+    position: sticky;
+    bottom: 72px;
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
+    margin-top: 10px;
+    padding: 8px;
+    border-radius: 11px;
+  }
+
+  .mc-control {
+    min-height: 46px;
+    padding: 0 9px;
+    font-size: 9px;
+  }
+
+  .mc-estop {
+    grid-column: 1 / -1;
+  }
+
+  .mc-modal-backdrop {
+    padding: 14px;
+    align-items: end;
+  }
+
+  .mc-modal {
+    width: 100%;
+    max-width: 430px;
+    max-height: calc(100dvh - 28px);
+    overflow-y: auto;
+    padding: 22px 18px;
+    border-radius: 16px 16px 12px 12px;
+    animation: mc-fade-up .3s var(--ease);
+  }
+
+  .mc-modal-actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Small phones */
+@media (max-width: 390px) {
+  .mc-header {
+    padding-left: 11px;
+    padding-right: 11px;
+  }
+
+  .mc-header h1 {
+    font-size: 13px;
+  }
+
+  .mc-clock {
+    font-size: 9px;
+  }
+
+  .mc-content {
+    padding-left: 9px;
+    padding-right: 9px;
+  }
+
+  .mc-card-body {
+    padding: 10px;
+  }
+
+  .mc-card-head {
+    padding: 0 10px;
+  }
+
+  .mc-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mc-video-frame {
+    min-height: 185px;
+  }
+
+  .mc-control-bar {
+    grid-template-columns: 1fr;
+  }
+
+  .mc-estop {
+    grid-column: auto;
+  }
+
+  .mc-control {
+    width: 100%;
+  }
+
+  .mc-nav-item span {
+    font-size: 7px;
+  }
+}
+
+/* Very small devices: keep everything readable at 320px. */
+@media (max-width: 340px) {
+  .mc-header h1 {
+    font-size: 12px;
+  }
+
+  .mc-eyebrow {
+    display: none;
+  }
+
+  .mc-page-head h2 {
+    font-size: 14px;
+  }
+
+  .mc-video-frame {
+    min-height: 165px;
+  }
+
+  .mc-sensor-value {
+    font-size: 20px;
+  }
+
+  .gas-card {
+    flex-basis: 82vw;
+  }
+}
+
+/* --- Keyboard focus / accessibility ---------------------- */
+:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 2px;
+}
+
+button:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* --- Respect users who prefer less motion ---------------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
