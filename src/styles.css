@@ -1,15 +1,15 @@
 :root {
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  color: #e8eef2;
-  background: #0a0e12;
-  --bg: #0a0e12;
-  --panel: #10171d;
-  --border: #2a3944;
-  --muted: #8d9daa;
-  --green: #55d6a2;
-  --amber: #e8a23a;
-  --red: #ef6b73;
-  --blue: #82b7e8;
+  color: #e7edf3;
+  background: #080b0f;
+  --bg: #080b0f;
+  --panel: #000000;
+  --border: #27343f;
+  --muted: #889aad;
+  --green: #05f324;
+  --amber: #ffa200;
+  --red: #cc0000;
+  --blue: #74aaec;
 }
 
 * {
@@ -18,10 +18,8 @@
 
 body {
   margin: 0;
-  min-width: 320px;
+  min-width: 1180px;
   background: var(--bg);
-  line-height: 1.5;
-  text-rendering: optimizeLegibility;
 }
 
 button {
@@ -271,12 +269,11 @@ button {
 }
 
 .mc-card {
-  background: linear-gradient(180deg, rgba(20, 29, 37, .98), rgba(14, 21, 27, .98));
+  background: linear-gradient(180deg, rgba(18, 25, 32, .96), rgba(12, 17, 22, .96));
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 10px;
   overflow: hidden;
   min-width: 0;
-  box-shadow: 0 10px 26px rgba(0, 0, 0, .16);
 }
 
 .mc-card-head {
@@ -870,28 +867,6 @@ button {
   cursor: not-allowed;
 }
 
-.mc-nav-item:focus-visible,
-.mc-collapse:focus-visible,
-.mc-export:focus-visible,
-.mc-control:focus-visible,
-.mc-modal-close:focus-visible {
-  outline: 2px solid var(--blue);
-  outline-offset: 2px;
-}
-
-.mc-nav-item,
-.mc-export,
-.mc-control {
-  transition: background-color .18s ease, border-color .18s ease, color .18s ease, transform .18s ease;
-}
-
-.mc-export:hover,
-.mc-control:hover:not(:disabled) {
-  background: #1b2730;
-  border-color: #405462;
-  transform: translateY(-1px);
-}
-
 .mc-start {
   color: var(--green);
   border-color: rgba(52, 211, 153, .3);
@@ -990,153 +965,5 @@ button {
 
   .gas-cards-grid {
     grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 860px) {
-  .mc-sidebar {
-    width: 72px;
-    padding-inline: 10px;
-  }
-
-  .mc-sidebar:not(.collapsed) {
-    width: 220px;
-  }
-
-  .mc-sidebar.collapsed .mc-brand strong,
-  .mc-sidebar.collapsed .mc-brand span,
-  .mc-sidebar.collapsed .mc-nav-item span,
-  .mc-sidebar.collapsed .mc-system-online {
-    display: none;
-  }
-
-  .mc-main,
-  .mc-main-collapsed {
-    margin-left: 72px;
-  }
-
-  .mc-header {
-    padding: 12px 18px;
-  }
-
-  .mc-header-right {
-    gap: 10px;
-  }
-
-  .mc-header-stat,
-  .mc-connection {
-    display: none;
-  }
-
-  .mc-content {
-    padding: 18px;
-  }
-
-  .mc-dashboard-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .rover-status-card,
-  .live-video-card,
-  .alert-panel,
-  .tunnel-map-card,
-  .thermal-map-card,
-  .sensor-charts-card,
-  .communication-status,
-  .mission-timeline {
-    grid-column: 1;
-    grid-row: auto;
-  }
-
-  .gas-cards-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .mc-timeline {
-    grid-template-columns: 1fr 1fr;
-    gap: 16px 10px;
-  }
-}
-
-@media (max-width: 560px) {
-  .mc-sidebar,
-  .mc-sidebar:not(.collapsed) {
-    width: 64px;
-    padding-inline: 8px;
-  }
-
-  .mc-sidebar .mc-brand {
-    justify-content: center;
-    padding-inline: 0;
-  }
-
-  .mc-sidebar .mc-brand strong,
-  .mc-sidebar .mc-brand span,
-  .mc-sidebar .mc-nav-item span,
-  .mc-sidebar .mc-system-online {
-    display: none;
-  }
-
-  .mc-sidebar .mc-nav-item {
-    justify-content: center;
-    padding-inline: 8px;
-  }
-
-  .mc-main,
-  .mc-main-collapsed {
-    width: calc(100vw - 64px);
-    margin-left: 64px;
-    overflow-x: hidden;
-  }
-
-  .mc-content,
-  .mc-dashboard-grid,
-  .mc-card {
-    width: 100%;
-    max-width: 100%;
-  }
-
-  .mc-collapse {
-    right: -12px;
-  }
-
-  .mc-header h1 {
-    font-size: 15px;
-  }
-
-  .mc-clock {
-    font-size: 10px;
-  }
-
-  .mc-content {
-    padding: 14px 12px 24px;
-  }
-
-  .mc-card-body {
-    padding: 12px;
-  }
-
-  .gas-cards-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .mc-video-frame,
-  .tunnel-svg,
-  .thermal-grid {
-    height: 210px;
-  }
-
-  .mc-control-bar {
-    grid-template-columns: 1fr;
-    bottom: 8px;
-  }
-
-  .mc-modal {
-    width: calc(100vw - 28px);
-    padding: 22px;
-  }
-
-  .mc-timeline {
-    grid-template-columns: 1fr;
   }
 }
